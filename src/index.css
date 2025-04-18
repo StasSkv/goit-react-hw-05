@@ -1,7 +1,7 @@
 :root {
   --font: Helvetica, Arial, sans-serif;
-  --background: rgba(255, 255, 255, 0.87);
-  --main-color: rgba(18, 17, 17, 0.87);
+  --background: #e0ecff;
+  --main-color: rgba(255, 255, 255, 0.87);
 
   font-family: var(--font);
   color: var(--main-color);
@@ -53,4 +53,3 @@ img {
   max-width: 100%;
   height: auto;
 }
-

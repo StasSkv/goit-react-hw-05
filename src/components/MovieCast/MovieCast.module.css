@@ -1,0 +1,13 @@
+p {
+    color: #162638;
+}
+ 
+.cast {
+    padding-top:  20px;
+}
+.cast ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+
+}

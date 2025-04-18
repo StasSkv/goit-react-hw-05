@@ -1,0 +1,24 @@
+.movieList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+
+.movieItem {
+  width: calc((100% - 60px) / 4);
+  background-color: #182028;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.movieList h2 {
+  padding: 10px 0;
+}

@@ -1,0 +1,78 @@
+.movieDetailsWrap {
+  padding: 10px 50px;
+}
+
+.movieDetails {
+  display: flex;
+  gap: 50px;
+  margin-bottom: 10px;
+}
+
+.description {
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.movieDetailsWrap button {
+  display: block;
+  margin-bottom: 20px;
+  margin-right: auto;
+  background-color: #162638;
+  color: #f0f4f8;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movieDetailsWrap button:hover {
+  background-color: #e0ecff;
+  color: #162638;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.description p {
+  color: #162638;
+}
+
+.description h2 {
+  color: #162638;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.description span {
+  font-weight: 800;
+}
+
+.link {
+  text-decoration: none;
+  color: #f0f4f8;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background-color: #162638;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.link:hover {
+  background-color: #e0ecff;
+  color: #162638;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.active {
+  background-color: #182028;
+  color: white;
+}
+
+nav {
+  display: flex;
+  gap: 40px;
+  padding-left: 50px;
+}
