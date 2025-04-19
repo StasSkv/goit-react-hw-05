@@ -15,7 +15,7 @@
   gap: 20px;
 }
 
-.movieDetailsWrap button {
+.movieDetailsWrap .goHome {
   display: block;
   margin-bottom: 20px;
   margin-right: auto;
@@ -29,7 +29,7 @@
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.movieDetailsWrap button:hover {
+.movieDetailsWrap .goHome:hover {
   background-color: #e0ecff;
   color: #162638;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

@@ -1,25 +1,31 @@
 import { useEffect, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchMovieReviews } from '../../apiService';
 import css from './MovieReviews.module.css';
 
 const MovieReviews = () => {
-  const { movieId } = useOutletContext();
+  const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const getReviews = async () => {
-      const data = await fetchMovieReviews(movieId);
-      setReviews(data.results);
+      try {
+        const data = await fetchMovieReviews(movieId);
+        setReviews(data.results);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
     };
-
     if (movieId) {
       getReviews();
     }
   }, [movieId]);
-
   if (reviews.length === 0) {
-    return <div><p>not reviews</p></div>;
+    return (
+      <div>
+        <p>No reviews found.</p>
+      </div>
+    );
   }
 
   return (

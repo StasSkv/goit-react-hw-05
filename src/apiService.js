@@ -18,8 +18,8 @@ export const fetchMoviesByQuery = async (query) => {
   return response.data;
 };
 
-export const fetchMovieById = async (id) => {
-  const response = await axiosInstance.get(`/movie/${id}`);
+export const fetchMovieById = async (movieId) => {
+  const response = await axiosInstance.get(`/movie/${movieId}`);
   return response.data;
 };
 

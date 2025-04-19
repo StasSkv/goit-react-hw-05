@@ -1,33 +1,31 @@
-import { useLocation, useNavigate, NavLink, Outlet, useParams } from 'react-router-dom';
+import { useLocation, NavLink, Outlet, useParams } from 'react-router-dom';
 import css from './MovieDetailsPage.module.css';
 import clsx from 'clsx';
 import { Suspense, useRef, useState, useEffect } from 'react';
 import Loader from '../../components/Loader/Loader';
 import { fetchMovieById } from '../../apiService';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import markImage from '../../images/mark.png';
 
 const MovieDetailsPage = () => {
-  const { movieId } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const outletRef = useRef(null);
   const [movie, setMovie] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const from = location.state?.from || '/';
+  const { movieId } = useParams();
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const from = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
-      if (!movieId) {
-        setError('Фільм не знайдений');
-        setLoading(false);
-        return;
-      }
+    if (!movieId) return;
 
+    const fetchMovieDetails = async () => {
       try {
+        setLoading(true);
         const data = await fetchMovieById(movieId);
         setMovie(data);
       } catch (error) {
         setError(error.message);
+        return error;
       } finally {
         setLoading(false);
       }
@@ -36,13 +34,11 @@ const MovieDetailsPage = () => {
     fetchMovieDetails();
   }, [movieId]);
 
-  if (loading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    setError(error.message);
-  }
+  if (loading) return <Loader />;
+  if (error) return <ErrorMessage message={'we have a problem'} />;
+  if (!movie) return null;
+  const { original_title, overview, release_date, poster_path, vote_average, original_language } =
+    movie;
 
   const activeLinkClass = ({ isActive }) => {
     return clsx(css.link, isActive && css.active);
@@ -50,28 +46,28 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={css.movieDetailsWrap}>
-      <button onClick={() => navigate(from)}>Go back</button>
-
+      <NavLink className={css.goHome} to={from.current}>
+        Go back
+      </NavLink>
       <div className={css.movieDetails}>
-        {movie?.poster_path && (
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            width={300}
-            height={300}
-            alt={movie.original_title}
-          />
-        )}
+        <img
+          src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : markImage}
+          width={300}
+          height={300}
+          alt={original_title}
+        />
+
         <div className={css.description}>
-          <h2>{movie.original_title}</h2>
-          <p>{movie.overview}</p>
+          <h2>{original_title}</h2>
+          <p>{overview}</p>
           <p>
-            <span>Release:</span> {movie.release_date}
+            <span>Release:</span> {release_date}
           </p>
           <p>
-            <span>Average:</span> {movie.vote_average}
+            <span>Average:</span> {vote_average}
           </p>
           <p>
-            <span>Language:</span> {movie.original_language}
+            <span>Language:</span> {original_language}
           </p>
         </div>
       </div>
@@ -84,9 +80,9 @@ const MovieDetailsPage = () => {
         </NavLink>
       </nav>
 
-      <div ref={outletRef}>
+      <div>
         <Suspense fallback={<Loader />}>
-          <Outlet context={{ movieId }} />
+          <Outlet />
         </Suspense>
       </div>
     </div>
